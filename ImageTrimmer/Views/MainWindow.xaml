@@ -18,19 +18,22 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="1" HorizontalContentAlignment="Stretch" />
+        <ListView
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding FileInfos}" />
 
         <StackPanel Grid.Row="1" Margin="2">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Width="15" Text="x :" />
                 <Border Margin="3,0" />
-                <TextBox Width="100" />
+                <TextBox Width="100" Text="{Binding X}" />
 
                 <Border Margin="10,0" />
 
                 <TextBlock Width="15" Text="y :" />
                 <Border Margin="3,0" />
-                <TextBox Width="100" />
+                <TextBox Width="100" Text="{Binding Y}" />
             </StackPanel>
 
             <Border Margin="0,2" />
@@ -38,18 +41,19 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Width="15" Text="w :" />
                 <Border Margin="3,0" />
-                <TextBox Width="100" />
+                <TextBox Width="100" Text="{Binding Width}" />
 
                 <Border Margin="10,0" />
 
                 <TextBlock Width="15" Text="h :" />
                 <Border Margin="3,0" />
-                <TextBox Width="100" />
+                <TextBox Width="100" Text="{Binding Height}" />
             </StackPanel>
 
             <Button
                 Padding="15,0"
                 HorizontalAlignment="Right"
+                Command="{Binding CropImagesCommand}"
                 Content="Crop" />
 
         </StackPanel>
