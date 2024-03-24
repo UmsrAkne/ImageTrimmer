@@ -13,6 +13,46 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="1" HorizontalContentAlignment="Stretch" />
+
+        <StackPanel Grid.Row="1" Margin="2">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="15" Text="x :" />
+                <Border Margin="3,0" />
+                <TextBox Width="100" />
+
+                <Border Margin="10,0" />
+
+                <TextBlock Width="15" Text="y :" />
+                <Border Margin="3,0" />
+                <TextBox Width="100" />
+            </StackPanel>
+
+            <Border Margin="0,2" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="15" Text="w :" />
+                <Border Margin="3,0" />
+                <TextBox Width="100" />
+
+                <Border Margin="10,0" />
+
+                <TextBlock Width="15" Text="h :" />
+                <Border Margin="3,0" />
+                <TextBox Width="100" />
+            </StackPanel>
+
+            <Button
+                Padding="15,0"
+                HorizontalAlignment="Right"
+                Content="Crop" />
+
+        </StackPanel>
+
     </Grid>
 </Window>
