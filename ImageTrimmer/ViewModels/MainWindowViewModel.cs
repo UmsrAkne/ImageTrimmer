@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using ImageTrimmer.Models;
 using MyLibrary.Commands;
@@ -43,5 +45,10 @@ namespace ImageTrimmer.ViewModels
                 await trimmer.TrimAsync(f, new Rect(X, Y, Width, Height));
             }
         });
+
+        public void AddFiles(IEnumerable<FileInfo> imageFiles)
+        {
+            FileInfos = new ObservableCollection<FileInfo>(imageFiles.Where(f => f.Extension == ".png"));
+        }
     }
 }
