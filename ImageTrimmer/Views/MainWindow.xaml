@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <ListView
-            Grid.Row="1"
+            Grid.Row="0"
             HorizontalContentAlignment="Stretch"
             ItemsSource="{Binding FileInfos}" />
 
