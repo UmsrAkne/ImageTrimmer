@@ -31,7 +31,11 @@
             HorizontalContentAlignment="Stretch"
             ItemsSource="{Binding FileInfos}" />
 
-        <StackPanel Grid.Row="1" Margin="2">
+        <StackPanel
+            Grid.Row="1"
+            Margin="2"
+            IsEnabled="{Binding UiEnabled}">
+
             <StackPanel Orientation="Horizontal">
                 <TextBlock Width="15" Text="x :" />
                 <Border Margin="3,0" />
