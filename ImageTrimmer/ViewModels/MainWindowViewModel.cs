@@ -14,6 +14,9 @@ namespace ImageTrimmer.ViewModels
     {
         private string title = "Image Trimmer";
         private ObservableCollection<FileInfo> fileInfos = new ObservableCollection<FileInfo>();
+        private bool uiEnabled = true;
+
+        public bool UiEnabled { get => uiEnabled; set => SetProperty(ref uiEnabled, value); }
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
@@ -38,12 +41,15 @@ namespace ImageTrimmer.ViewModels
                 return;
             }
 
+            UiEnabled = false;
             var trimmer = new Trimmer();
 
             foreach (var f in fileInfos)
             {
                 await trimmer.TrimAsync(f, new Rect(X, Y, Width, Height));
             }
+
+            UiEnabled = true;
         });
 
         public void AddFiles(IEnumerable<FileInfo> imageFiles)
