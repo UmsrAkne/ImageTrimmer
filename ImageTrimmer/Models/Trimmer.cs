@@ -82,7 +82,7 @@ namespace ImageTrimmer.Models
             // ImageMagick を呼び出し
             var startInfo = new ProcessStartInfo
             {
-                FileName = "convert",
+                FileName = "magick",
                 Arguments = arguments,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
