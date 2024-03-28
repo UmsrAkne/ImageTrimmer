@@ -87,6 +87,7 @@ namespace ImageTrimmer.Models
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
+                CreateNoWindow = true,
             };
 
             var process = new Process();
