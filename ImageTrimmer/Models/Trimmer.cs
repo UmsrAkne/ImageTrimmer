@@ -13,8 +13,10 @@ namespace ImageTrimmer.Models
         {
             if (!ValidateParameter(targetFile, rect) || !targetFile.Exists)
             {
-                Console.WriteLine("パラメーターが不正です");
-                Console.WriteLine("ファイルが .png かどうか、パスが正しいか、切り抜く範囲が画像より大きくないを確認してください。");
+                Console.WriteLine("パラメーターが不正です。以下の項目を確認してください");
+                Console.WriteLine("ファイルの拡張子が .png であるか");
+                Console.WriteLine("ファイルのパスが正しいか");
+                Console.WriteLine("切り抜く範囲が画像より小さいく、サイズは 0 より大きい値か");
                 return;
             }
 
@@ -64,10 +66,15 @@ namespace ImageTrimmer.Models
         /// </summary>
         /// <returns>２つのパラメーターが適切な値であれば true　を返し、それ以外は false を返します</returns>
         /// <param name="fileInfo">画像ファイルを入力します。サポートされる拡張子は png のみです。</param>
-        /// <param name="rect">切り抜く範囲を指定します。画像のサイズ以上の範囲を指定することはできません。</param>
+        /// <param name="rect">切り抜く範囲を指定します。画像のサイズ以上の範囲や、サイズ 0 の矩形を指定することはできません。</param>
         public bool ValidateParameter(FileInfo fileInfo, Rect rect)
         {
             if (fileInfo.Extension != ".png")
+            {
+                return false;
+            }
+
+            if (rect.Width <= 0 || rect.Height <= 0)
             {
                 return false;
             }
