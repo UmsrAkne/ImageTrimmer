@@ -7,7 +7,7 @@ namespace ImageTrimmer.Models
     {
         private bool converted;
 
-        public FileInfo FileInfo { get; set; }
+        public FileInfo FileInfo { get; init; }
 
         public string FullName => FileInfo != null ? FileInfo.FullName : string.Empty;
 

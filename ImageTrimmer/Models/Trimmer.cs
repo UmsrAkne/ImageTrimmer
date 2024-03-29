@@ -68,7 +68,7 @@ namespace ImageTrimmer.Models
         /// <returns>２つのパラメーターが適切な値であれば true　を返し、それ以外は false を返します</returns>
         /// <param name="fileInfo">画像ファイルを入力します。サポートされる拡張子は png のみです。</param>
         /// <param name="rect">切り抜く範囲を指定します。画像のサイズ以上の範囲や、サイズ 0 の矩形を指定することはできません。</param>
-        public bool ValidateParameter(FileInfo fileInfo, Rect rect)
+        private bool ValidateParameter(FileInfo fileInfo, Rect rect)
         {
             if (fileInfo.Extension != ".png")
             {

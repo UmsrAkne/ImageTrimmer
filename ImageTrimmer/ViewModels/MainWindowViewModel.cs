@@ -24,7 +24,7 @@ namespace ImageTrimmer.ViewModels
         public ObservableCollection<FileInfoWrapper> FileInfos
         {
             get => fileInfos;
-            set => SetProperty(ref fileInfos, value);
+            private set => SetProperty(ref fileInfos, value);
         }
 
         public int X { get; set; }
