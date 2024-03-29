@@ -15,6 +15,7 @@ namespace ImageTrimmer.ViewModels
         private string title = "Image Trimmer";
         private ObservableCollection<FileInfo> fileInfos = new ObservableCollection<FileInfo>();
         private bool uiEnabled = true;
+        private int completedCount;
 
         public bool UiEnabled { get => uiEnabled; set => SetProperty(ref uiEnabled, value); }
 
@@ -34,6 +35,8 @@ namespace ImageTrimmer.ViewModels
 
         public int Height { get; set; }
 
+        public int CompletedCount { get => completedCount; set => SetProperty(ref completedCount, value); }
+
         public AsyncDelegateCommand CropImagesCommand => new (async () =>
         {
             if (fileInfos == null || fileInfos.Count == 0)
@@ -41,12 +44,14 @@ namespace ImageTrimmer.ViewModels
                 return;
             }
 
+            CompletedCount = 0;
             UiEnabled = false;
             var trimmer = new Trimmer();
 
             foreach (var f in fileInfos)
             {
                 await trimmer.TrimAsync(f, new Rect(X, Y, Width, Height));
+                CompletedCount++;
             }
 
             UiEnabled = true;

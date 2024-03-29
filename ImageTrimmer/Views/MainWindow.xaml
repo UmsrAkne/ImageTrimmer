@@ -24,6 +24,7 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ListView
@@ -68,7 +69,14 @@
                 Command="{Binding CropImagesCommand}"
                 Content="Crop" />
 
+
         </StackPanel>
+
+        <ProgressBar
+            Grid.Row="2"
+            Height="6"
+            Maximum="{Binding FileInfos.Count}"
+            Value="{Binding CompletedCount}" />
 
     </Grid>
 </Window>
