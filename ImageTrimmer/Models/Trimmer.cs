@@ -9,55 +9,6 @@ namespace ImageTrimmer.Models
 {
     public class Trimmer
     {
-        public void Trim(FileInfo targetFile, Rect rect)
-        {
-            if (!ValidateParameter(targetFile, rect) || !targetFile.Exists)
-            {
-                Console.WriteLine("パラメーターが不正です");
-                Console.WriteLine("ファイルが .png かどうか、パスが正しいか、切り抜く範囲が画像より大きくないを確認してください。");
-                return;
-            }
-
-            // 切り抜く範囲を指定 (幅、高さ、X座標、Y座標)
-            var width = rect.Width;
-            var height = rect.Height;
-            var x = rect.X;
-            var y = rect.Y;
-
-            var inputImagePath = targetFile.FullName;
-            var outputImagePath = $@"{targetFile.Directory}\{Path.GetFileNameWithoutExtension(targetFile.Name)}_cropped.png";
-
-            // ImageMagick のコマンド引数を作成
-            var arguments = $"\"{inputImagePath}\" -crop {width}x{height}+{x}+{y} \"{outputImagePath}\"";
-
-            // ImageMagick を呼び出し
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = "convert",
-                Arguments = arguments,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-            };
-
-            var process = new Process();
-            process.StartInfo = startInfo;
-            process.Start();
-
-            process.WaitForExit();
-
-            // エラー出力を取得して表示
-            var errorMessage = process.StandardError.ReadToEnd();
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                Console.WriteLine("Error: " + errorMessage);
-            }
-            else
-            {
-                Console.WriteLine("Image cropped successfully.");
-            }
-        }
-
         public async Task TrimAsync(FileInfo targetFile, Rect rect)
         {
             if (!ValidateParameter(targetFile, rect) || !targetFile.Exists)
