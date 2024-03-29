@@ -13,14 +13,15 @@ namespace ImageTrimmer.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Image Trimmer";
-        private ObservableCollection<FileInfo> fileInfos = new ObservableCollection<FileInfo>();
+        private ObservableCollection<FileInfoWrapper> fileInfos = new ObservableCollection<FileInfoWrapper>();
         private bool uiEnabled = true;
+        private int completedCount;
 
         public bool UiEnabled { get => uiEnabled; set => SetProperty(ref uiEnabled, value); }
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
-        public ObservableCollection<FileInfo> FileInfos
+        public ObservableCollection<FileInfoWrapper> FileInfos
         {
             get => fileInfos;
             set => SetProperty(ref fileInfos, value);
@@ -34,6 +35,8 @@ namespace ImageTrimmer.ViewModels
 
         public int Height { get; set; }
 
+        public int CompletedCount { get => completedCount; set => SetProperty(ref completedCount, value); }
+
         public AsyncDelegateCommand CropImagesCommand => new (async () =>
         {
             if (fileInfos == null || fileInfos.Count == 0)
@@ -41,12 +44,14 @@ namespace ImageTrimmer.ViewModels
                 return;
             }
 
+            CompletedCount = 0;
             UiEnabled = false;
             var trimmer = new Trimmer();
 
             foreach (var f in fileInfos)
             {
                 await trimmer.TrimAsync(f, new Rect(X, Y, Width, Height));
+                CompletedCount = FileInfos.Count(fw => fw.Converted);
             }
 
             UiEnabled = true;
@@ -54,7 +59,9 @@ namespace ImageTrimmer.ViewModels
 
         public void AddFiles(IEnumerable<FileInfo> imageFiles)
         {
-            FileInfos = new ObservableCollection<FileInfo>(imageFiles.Where(f => f.Extension == ".png"));
+            FileInfos = new ObservableCollection<FileInfoWrapper>(imageFiles
+                .Where(f => f.Extension == ".png")
+                .Select(f => new FileInfoWrapper() { FileInfo = f, }));
         }
     }
 }

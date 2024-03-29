@@ -24,12 +24,27 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ListView
             Grid.Row="0"
             HorizontalContentAlignment="Stretch"
-            ItemsSource="{Binding FileInfos}" />
+            ItemsSource="{Binding FileInfos}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:FileInfoWrapper}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Width="150"
+                            Margin="3,0"
+                            Text="{Binding Name}" />
+                        <TextBlock Text="{Binding FullName}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
 
         <StackPanel
             Grid.Row="1"
@@ -68,7 +83,14 @@
                 Command="{Binding CropImagesCommand}"
                 Content="Crop" />
 
+
         </StackPanel>
+
+        <ProgressBar
+            Grid.Row="2"
+            Height="6"
+            Maximum="{Binding FileInfos.Count}"
+            Value="{Binding CompletedCount}" />
 
     </Grid>
 </Window>

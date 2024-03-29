@@ -9,9 +9,9 @@ namespace ImageTrimmer.Models
 {
     public class Trimmer
     {
-        public async Task TrimAsync(FileInfo targetFile, Rect rect)
+        public async Task TrimAsync(FileInfoWrapper targetFile, Rect rect)
         {
-            if (!ValidateParameter(targetFile, rect) || !targetFile.Exists)
+            if (!ValidateParameter(targetFile.FileInfo, rect) || !targetFile.Exists)
             {
                 Console.WriteLine("パラメーターが不正です。以下の項目を確認してください");
                 Console.WriteLine("ファイルの拡張子が .png であるか");
@@ -27,7 +27,7 @@ namespace ImageTrimmer.Models
             var y = rect.Y;
 
             var inputImagePath = targetFile.FullName;
-            var outputImagePath = $@"{targetFile.Directory}\{Path.GetFileNameWithoutExtension(targetFile.Name)}_cropped.png";
+            var outputImagePath = $@"{targetFile.FileInfo.Directory}\{Path.GetFileNameWithoutExtension(targetFile.Name)}_cropped.png";
 
             // ImageMagick のコマンド引数を作成
             var arguments = $"\"{inputImagePath}\" -crop {width}x{height}+{x}+{y} \"{outputImagePath}\"";
@@ -58,6 +58,7 @@ namespace ImageTrimmer.Models
             else
             {
                 Console.WriteLine("Image cropped successfully.");
+                targetFile.Converted = true;
             }
         }
 
