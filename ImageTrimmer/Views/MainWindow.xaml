@@ -30,7 +30,21 @@
         <ListView
             Grid.Row="0"
             HorizontalContentAlignment="Stretch"
-            ItemsSource="{Binding FileInfos}" />
+            ItemsSource="{Binding FileInfos}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:FileInfoWrapper}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Width="150"
+                            Margin="3,0"
+                            Text="{Binding Name}" />
+                        <TextBlock Text="{Binding FullName}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
 
         <StackPanel
             Grid.Row="1"
