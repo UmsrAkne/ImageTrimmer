@@ -39,6 +39,30 @@
                             Width="150"
                             Margin="3,0"
                             Text="{Binding Name}" />
+
+                        <Border
+                            Width="70"
+                            Margin="4,0"
+                            BorderBrush="Black"
+                            BorderThickness="1,0">
+
+                            <TextBlock TextAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Converted}" Value="True">
+                                                <Setter Property="Text" Value="変換済み" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding Converted}" Value="False">
+                                                <Setter Property="Text" Value="" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Border>
+
                         <TextBlock Text="{Binding FullName}" />
                     </StackPanel>
                 </DataTemplate>
