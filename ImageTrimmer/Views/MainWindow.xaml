@@ -70,12 +70,9 @@
 
         </ListView>
 
-        <StackPanel
-            Grid.Row="1"
-            Margin="2"
-            IsEnabled="{Binding UiEnabled}">
+        <StackPanel Grid.Row="1" Margin="2">
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel IsEnabled="{Binding UiEnabled}" Orientation="Horizontal">
                 <TextBlock Width="15" Text="x :" />
                 <Border Margin="3,0" />
                 <TextBox Width="100" Text="{Binding X}" />
@@ -89,7 +86,7 @@
 
             <Border Margin="0,2" />
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel IsEnabled="{Binding UiEnabled}" Orientation="Horizontal">
                 <TextBlock Width="15" Text="w :" />
                 <Border Margin="3,0" />
                 <TextBox Width="100" Text="{Binding Width}" />
@@ -101,13 +98,42 @@
                 <TextBox Width="100" Text="{Binding Height}" />
             </StackPanel>
 
-            <Button
-                Padding="15,0"
+            <StackPanel
+                Margin="2"
                 HorizontalAlignment="Right"
-                Command="{Binding CropImagesCommand}"
-                Content="Crop" />
+                Orientation="Horizontal">
 
+                <Button
+                    Padding="15,0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CropImagesCommand}"
+                    Content="Crop"
+                    IsEnabled="{Binding UiEnabled}" />
 
+                <Border Margin="4,0" />
+
+                <Button
+                    Padding="15,0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CancelCommand}"
+                    Content="Cancel">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding UiEnabled}" Value="False">
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding UiEnabled}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+            </StackPanel>
         </StackPanel>
 
         <ProgressBar
