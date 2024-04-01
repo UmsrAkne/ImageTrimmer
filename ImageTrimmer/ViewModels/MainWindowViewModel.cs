@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using ImageTrimmer.Models;
 using MyLibrary.Commands;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace ImageTrimmer.ViewModels
@@ -52,10 +53,23 @@ namespace ImageTrimmer.ViewModels
             {
                 await trimmer.TrimAsync(f, new Rect(X, Y, Width, Height));
                 CompletedCount = FileInfos.Count(fw => fw.Converted);
+
+                if (CancelRequest)
+                {
+                    CancelRequest = false;
+                    break;
+                }
             }
 
             UiEnabled = true;
         });
+
+        public DelegateCommand CancelCommand => new DelegateCommand(() =>
+        {
+            CancelRequest = true;
+        });
+
+        private bool CancelRequest { get; set; }
 
         public void AddFiles(IEnumerable<FileInfo> imageFiles)
         {
