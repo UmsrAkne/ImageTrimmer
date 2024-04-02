@@ -13,10 +13,16 @@ namespace ImageTrimmer.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
+        private readonly Trimmer trimmer = new ();
         private string title = "Image Trimmer";
         private ObservableCollection<FileInfoWrapper> fileInfos = new ObservableCollection<FileInfoWrapper>();
         private bool uiEnabled = true;
         private int completedCount;
+
+        public MainWindowViewModel()
+        {
+            trimmer.Logger = Logger;
+        }
 
         public bool UiEnabled { get => uiEnabled; set => SetProperty(ref uiEnabled, value); }
 
@@ -49,7 +55,6 @@ namespace ImageTrimmer.ViewModels
 
             CompletedCount = 0;
             UiEnabled = false;
-            var trimmer = new Trimmer { Logger = Logger, };
 
             foreach (var f in fileInfos)
             {
