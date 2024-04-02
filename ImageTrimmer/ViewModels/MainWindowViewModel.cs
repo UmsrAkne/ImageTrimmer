@@ -38,6 +38,8 @@ namespace ImageTrimmer.ViewModels
 
         public int CompletedCount { get => completedCount; set => SetProperty(ref completedCount, value); }
 
+        public Logger Logger { get; private set; } = new Logger();
+
         public AsyncDelegateCommand CropImagesCommand => new (async () =>
         {
             if (fileInfos == null || fileInfos.Count == 0)
@@ -47,7 +49,7 @@ namespace ImageTrimmer.ViewModels
 
             CompletedCount = 0;
             UiEnabled = false;
-            var trimmer = new Trimmer();
+            var trimmer = new Trimmer { Logger = Logger, };
 
             foreach (var f in fileInfos)
             {

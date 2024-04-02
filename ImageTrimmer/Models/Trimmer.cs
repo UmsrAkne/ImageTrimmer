@@ -9,14 +9,16 @@ namespace ImageTrimmer.Models
 {
     public class Trimmer
     {
+        public Logger Logger { get; set; }
+
         public async Task TrimAsync(FileInfoWrapper targetFile, Rect rect)
         {
             if (!ValidateParameter(targetFile.FileInfo, rect) || !targetFile.Exists)
             {
-                Console.WriteLine("パラメーターが不正です。以下の項目を確認してください");
-                Console.WriteLine("ファイルの拡張子が .png であるか");
-                Console.WriteLine("ファイルのパスが正しいか");
-                Console.WriteLine("切り抜く範囲が画像より小さいく、サイズは 0 より大きい値か");
+                Logger.Add("パラメーターが不正です。以下の項目を確認してください");
+                Logger.Add("ファイルの拡張子が .png であるか");
+                Logger.Add("ファイルのパスが正しいか");
+                Logger.Add("切り抜く範囲が画像より小さいく、サイズは 0 より大きい値か");
                 return;
             }
 
@@ -53,11 +55,11 @@ namespace ImageTrimmer.Models
             var errorMessage = await process.StandardError.ReadToEndAsync();
             if (!string.IsNullOrEmpty(errorMessage))
             {
-                Console.WriteLine("Error: " + errorMessage);
+                Logger.Add("Error: " + errorMessage);
             }
             else
             {
-                Console.WriteLine("Image cropped successfully.");
+                Logger.Add("Image cropped successfully.");
                 targetFile.Converted = true;
             }
         }

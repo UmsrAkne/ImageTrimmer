@@ -7,7 +7,7 @@ namespace ImageTrimmer.Models
     {
         private string text;
 
-        public string Text { get => text; private set => SetProperty(ref text, value); }
+        public string Text { get => text; set => SetProperty(ref text, value); }
 
         public void Add(string message)
         {
