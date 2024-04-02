@@ -25,6 +25,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ListView
@@ -134,10 +135,18 @@
                 </Button>
 
             </StackPanel>
+
         </StackPanel>
 
-        <ProgressBar
+        <TextBox
             Grid.Row="2"
+            Height="80"
+            IsReadOnly="True"
+            Text="{Binding Logger.Text}"
+            VerticalScrollBarVisibility="Visible" />
+
+        <ProgressBar
+            Grid.Row="3"
             Height="6"
             Maximum="{Binding FileInfos.Count}"
             Value="{Binding CompletedCount}" />
