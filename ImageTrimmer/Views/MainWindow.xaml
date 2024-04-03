@@ -134,6 +134,15 @@
                     </Button.Style>
                 </Button>
 
+                <Border Margin="4,0" />
+
+                <Button
+                    Padding="15,0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding ClearListCommand}"
+                    Content="Clear"
+                    IsEnabled="{Binding UiEnabled}" />
+
             </StackPanel>
 
         </StackPanel>

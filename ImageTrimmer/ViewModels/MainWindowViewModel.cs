@@ -70,6 +70,9 @@ namespace ImageTrimmer.ViewModels
 
             UiEnabled = true;
         });
+        
+
+        public DelegateCommand ClearListCommand => new (() => { FileInfos.Clear(); });
 
         public DelegateCommand CancelCommand => new DelegateCommand(() =>
         {
